@@ -1,0 +1,19 @@
+
+██████╗░██╗░░░██╗███████╗███████╗███╗░░██╗███████╗██████╗░██████╗░
+██╔══██╗██║░░░██║██╔════╝██╔════╝████╗░██║██╔════╝██╔══██╗██╔══██╗
+██████╦╝██║░░░██║█████╗░░█████╗░░██╔██╗██║█████╗░░██████╔╝██║░░██║
+██╔══██╗██║░░░██║██╔══╝░░██╔══╝░░██║╚████║██╔══╝░░██╔══██╗██║░░██║
+██████╦╝╚██████╔╝██║░░░░░██║░░░░░██║░╚███║███████╗██║░░██║██████╔╝
+╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
+
+# Process access to sensitive files: Track when a process accesses sensitive files, such as 
+# password hashes or authentication tickets, using the FileCreateStreamHash event. This can
+# help you identify potentially malicious activity or suspicious behavior.
+
+<Rule group="sensitive_file_access" description="Track access to sensitive files" enabled="true">
+  <Conditions>
+    <FileCreateStreamHash filename=".*NTDS\.dit$" />
+    <FileCreateStreamHash filename=".*system32\config\SAM$" />
+    <FileCreateStreamHash filename=".*system32\config\SECURITY$" />
+  </Conditions>
+</Rule>
