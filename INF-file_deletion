@@ -1,0 +1,16 @@
+
+██████╗░██╗░░░██╗███████╗███████╗███╗░░██╗███████╗██████╗░██████╗░
+██╔══██╗██║░░░██║██╔════╝██╔════╝████╗░██║██╔════╝██╔══██╗██╔══██╗
+██████╦╝██║░░░██║█████╗░░█████╗░░██╔██╗██║█████╗░░██████╔╝██║░░██║
+██╔══██╗██║░░░██║██╔══╝░░██╔══╝░░██║╚████║██╔══╝░░██╔══██╗██║░░██║
+██████╦╝╚██████╔╝██║░░░░░██║░░░░░██║░╚███║███████╗██║░░██║██████╔╝
+╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
+
+# File deletion: Tracking the deletion of files can help infrastructure engineers understand what changes 
+# are being made to the systems.
+
+<Rule group="file_deletion" description="Track deletion of files" enabled="true">
+  <Conditions>
+    <FileDelete />
+  </Conditions>
+</Rule>
