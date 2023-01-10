@@ -1,0 +1,19 @@
+
+██████╗░██╗░░░██╗███████╗███████╗  ███╗░░██╗███████╗██████╗░██████╗░
+██╔══██╗██║░░░██║██╔════╝██╔════╝  ████╗░██║██╔════╝██╔══██╗██╔══██╗
+██████╦╝██║░░░██║█████╗░░█████╗░░  ██╔██╗██║█████╗░░██████╔╝██║░░██║
+██╔══██╗██║░░░██║██╔══╝░░██╔══╝░░  ██║╚████║██╔══╝░░██╔══██╗██║░░██║
+██████╦╝╚██████╔╝██║░░░░░██║░░░░░  ██║░╚███║███████╗██║░░██║██████╔╝
+╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░  ╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
+
+# Process access to sensitive registry keys: Track when a process accesses sensitive registry keys, such as 
+# those containing authentication information or system configuration, using the RegistryEvent event. This can 
+# help you identify potentially malicious activity or suspicious behavior.
+
+<Rule group="sensitive_registry_access" description="Track access to sensitive registry keys" enabled="true">
+  <Conditions>
+    <RegistryEvent type="RegSetValue" hive="HKLM" key=".*SAM.*" />
+    <RegistryEvent type="RegSetValue" hive="HKLM" key=".*SECURITY.*" />
+    <RegistryEvent type="RegSetValue" hive="HKLM" key=".*SYSTEM.*" />
+  </Conditions>
+</Rule>
