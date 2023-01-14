@@ -1,0 +1,87 @@
+
+██████╗░██╗░░░██╗███████╗███████╗███╗░░██╗███████╗██████╗░██████╗░
+██╔══██╗██║░░░██║██╔════╝██╔════╝████╗░██║██╔════╝██╔══██╗██╔══██╗
+██████╦╝██║░░░██║█████╗░░█████╗░░██╔██╗██║█████╗░░██████╔╝██║░░██║
+██╔══██╗██║░░░██║██╔══╝░░██╔══╝░░██║╚████║██╔══╝░░██╔══██╗██║░░██║
+██████╦╝╚██████╔╝██║░░░░░██║░░░░░██║░╚███║███████╗██║░░██║██████╔╝
+╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
+
+<!--My First Sysmon XML Configuration-->
+
+<!--This configuration file enables four different event types: file creation, network connections, process creation, and registry access.-->
+<!--It also includes a event transformer script written in Python that lowercases the ImageLoaded field in all events.-->
+
+<!--Start by determining the xml and schema versions.  Also include the hashing algorithm and filter by event.-->
+
+<?xml version="1.0" encoding="utf-8"?>
+<Sysmon schemaversion="4.31">
+  <HashAlgorithms>sha256</HashAlgorithms>
+  <EventFiltering>
+  
+<!--The first ruleset enables the file_creation event type.  Tracking the creation of executable files can help us-->
+<!--identify when new programs or scripts are introduced into the environment. -->
+  
+    <Rule group="file_creation" description="Track creation of executables" enabled="true">
+      <Conditions>
+        <FileCreate filename=".*\.exe" />
+      </Conditions>
+    </Rule>
+    
+<!--The second ruleset tracks outbound network connections by enabling the network_connection event type.  This can-->
+<!--help us identify when the system is communicating with external servers or services.-->
+
+    <Rule group="network_connection" description="Track outbound network connections" enabled="true">
+      <Conditions>
+        <NetworkConnect direction="outbound" />
+      </Conditions>
+    </Rule>
+    
+<!--The third ruleset tracks the creation of new processes by enabling the process_creation event type.  This can-->
+<!--help us understand what programs are running on the system and how they are interacting with each other.-->
+
+    <Rule group="process_creation" description="Track creation of new processes" enabled="true">
+      <Conditions>
+        <ProcessCreate />
+      </Conditions>
+    </Rule>
+    
+<!--The fourth ruleset tracks access to sensitive registry keys by enabling the registry_access event type.-->
+<!--Registry keys can contain sensitive authentication or configuration information.  UnexpectedAccess to -->
+<!--these keys may indicate an attempt to compromise the system or to perform unauthorized actions.-->
+
+    <Rule group="registry_access" description="Track access to sensitive registry keys" enabled="true">
+      <Conditions>
+        <RegistryEvent type="RegSetValue" hive="HKLM" key=".*SAM.*" />
+        <RegistryEvent type="RegSetValue" hive="HKLM" key=".*SECURITY.*" />
+        <RegistryEvent type="RegSetValue" hive="HKLM" key=".*SYSTEM.*" />
+      </Conditions>
+    </Rule>
+    
+<!--I have also added an event transformer in Python to lowercase the ImageLoaded field in all events.-->
+<!--This can be useful for a few reasons:-->
+
+<!--Consistency: Lowercasing the field ensures that the field's value is consistently in lowercase, regardless -->
+<!--of how it was entered or generated. This can make it easier to search and filter events, as you don't have-->
+<!--to worry about case sensitivity.-->
+
+<!--Normalization: Lowercasing the field can also help with normalization, as it reduces the number of unique -->
+<!--values for the field. For example, if the field contains both "C:\Windows\System32\cmd.exe" and -->
+<!--"C:\WINDOWS\SYSTEM32\CMD.EXE", lowercasing both values would result in the same string, making it easier -->
+<!--to identify and group related events.-->
+
+<!--Security: In some cases, lowercasing the field can also help with security. For example, if you are using-->
+<!--the field to track the execution of malicious programs, lowercasing the field can help ensure that -->
+<!--variations in the case of the file path don't result in separate events being generated.-->
+
+  </EventFiltering>
+  <EventTransformer eventId="1" enabled="true">
+    <Script language="python">
+      def transform(evt):
+        evt.ImageLoaded = evt.ImageLoaded.lower()
+        return evt
+    </Script>
+  </EventTransformer>
+</Sysmon>
+
+<!--That's it!  That's my first Sysmon XML Configuration!  I will add more Rules to this repisotory as I discover-->
+<!--more useful rulesets and try to provide as much information about what the rulesets accomplish as I can!-->
