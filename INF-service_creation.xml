@@ -6,8 +6,8 @@
 ██████╦╝╚██████╔╝██║░░░░░██║░░░░░██║░╚███║███████╗██║░░██║██████╔╝
 ╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
 
-# Service creation: Tracking the creation of new services can help infrastructure engineers understand
-# what services are running on the system and how they are configured. 
+<!-- Service creation: Tracking the creation of new services can help infrastructure engineers understand-->
+<!-- what services are running on the system and how they are configured. -->
 
 <Rule group="service_creation" description="Track creation of new services" enabled="true">
   <Conditions>
