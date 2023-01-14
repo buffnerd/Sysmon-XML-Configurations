@@ -6,7 +6,7 @@
 ██████╦╝╚██████╔╝██║░░░░░██║░░░░░██║░╚███║███████╗██║░░██║██████╔╝
 ╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
 
-# System shutdown: Tracking system shutdowns can help infrastructure engineers understand the uptime and availability of the system
+<!-- System shutdown: Tracking system shutdowns can help infrastructure engineers understand the uptime and availability of the system-->
 
 <Rule group="system_shutdown" description="Track system shutdowns" enabled="true">
   <Conditions>
