@@ -6,8 +6,8 @@
 ██████╦╝╚██████╔╝██║░░░░░██║░░░░░██║░╚███║███████╗██║░░██║██████╔╝
 ╚═════╝░░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═════╝░
 
-# Process injection: Track when a process injects code into another process using the ProcessInject event. 
-# This can help you detect various forms of malware and other malicious activity.
+<!-- Process injection: Track when a process injects code into another process using the ProcessInject event. 
+     This can help you detect various forms of malware and other malicious activity. -->
 
 <Rule group="process_injection" description="Track process injection" enabled="true">
   <Conditions>
